@@ -1,0 +1,67 @@
+<form>
+<br><br><br>
+Alarm 1:
+<input type="datetime-local" name="bdaytime"> <br><br><br>
+Repeat On:
+<input type="checkbox" name="Repeat On" value="Monday">Monday
+<input type="checkbox" name="Repeat On" value="Tuesday">Tuesday
+<input type="checkbox" name="Repeat On" value="Wednesday">Wednesday
+<input type="checkbox" name="Repeat On" value="Thursday">Thursday
+<input type="checkbox" name="Repeat On" value="Friday">Friday
+<input type="checkbox" name="Repeat On" value="Saturday">Saturday
+<input type="checkbox" name="Repeat On" value="Sunday">Sunday
+
+<br><br><br><br><br><br>
+Alarm 2:
+<input type="datetime-local" name="bdaytime"><br><br><br>
+
+<input type="checkbox" name="Repeat On" value="Monday">Monday
+<input type="checkbox" name="Repeat On" value="Tuesday">Tuesday
+<input type="checkbox" name="Repeat On" value="Wednesday">Wednesday
+<input type="checkbox" name="Repeat On" value="Thursday">Thursday
+<input type="checkbox" name="Repeat On" value="Friday">Friday
+<input type="checkbox" name="Repeat On" value="Saturday">Saturday
+<input type="checkbox" name="Repeat On" value="Sunday">Sunday
+
+<br><br><br><br><br><br>
+<input type="submit" value="Alarm Me">
+</form>
+
+<script> 
+var http = require('http'),							// require HTTP library
+	server = http.createServer(respondToClient);	// create a server with a callback
+
+var hitCount = 0;					// keep track of the number of requests
+server.listen(8080);				// start the server listening
+
+// let the user know you started:
+console.log('Server is listening on port 8080');
+
+// this is the callback function that's called
+// whenever a client makes a request:
+function respondToClient(request, response) {
+
+	console.log("request from: ");
+	console.log(request.connection.remoteAddress);
+
+	console.log("headers:");
+	console.log(request.headers);
+
+	console.log("URL:");
+	console.log(request.url);
+
+	// if you got a POST request, here's the body
+	request.on('data', function(body) {
+		console.log("Body of request:");
+		console.log(body.toString());
+	});
+
+	// write back to the client:
+	response.writeHead(200, {"Content-Type": "text/html"});
+	response.write("Hello, " + request.connection.remoteAddress);
+	response.write("hits: " + hitCount);
+	response.end();
+	// increment the hit counter:
+	hitCount++;
+};
+</script>
