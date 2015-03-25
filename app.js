@@ -23,9 +23,9 @@ var now = new Date();
  	//alarm.day ==  now.getDay() &&
  	alarm.year ==  now.getFullYear() &&
  	alarm.minutes == now.getMinutes()){
-    (console.log('yes'));
+    res.send('yes');
 		} else {
-	console.log('nope');
+	res.send('nope')
 	}
 }
 
@@ -66,9 +66,9 @@ app.get('/', function(req, res){
 
 app.get('/alarm', function (req, res) {
 	console.log('help!')
-	res.send('You asked about the alarm');
-	res.send(day);
-	res.send(alarm_type)
+	res.send(alarm.hour + alarm.minute);
+	//console.log(alarm.hour);
+	//res.send(alarm_type)
 
 	//time, output, state, active,repeat
 });
@@ -90,13 +90,16 @@ app.post("/setAlarm", function(req, res){
 	// res.send(req.params.alarm_type)
 });
 
-app.get("/alarm/:alarm_type/", function(req, res){
-	console.log(req.params.alarm_type);
-	alarm.alarmType = req.params.alarm_type;
-	res.send(req.params.alarm_type)
-});
+// app.get("/alarm/", function(req, res){
+// 	console.log(req.params.alarm_type);
+// 	alarm.alarmType = req.params.alarm_type;
+// 	res.send(req.params.alarm_type);
+// });
 
 app.get("/alarm/light/time/", function(req, res){
+	res.send(alarm);
+});
+app.get("/alarm/sound/time/", function(req, res){
 	res.send(alarm);
 });
 app.get("/alarm/:alarm_type/time/:hour", function(req, res){
