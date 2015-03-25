@@ -1,28 +1,108 @@
-<form>
-<br><br><br>
-Alarm 1:
-<input type="datetime-local" name="bdaytime"> <br><br><br>
+
+<!DOCTYPE html>
+<html>
+<head>
+
+<form target="_blank" id="set-alarm-form" class="form-horizontal col-md-12" action="" method="POST">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js">
+
+      $(document).ready(function(){
+        var alarm1time,pass;
+        $("#button").click(function(){
+          1time=$("#alarm1time").val();
+          2time=$("#alarm2time").val();
+          $.post("http://localhost:8080/alarm",{alarm1time: 1time,alarm2time: 2time}, function(data){
+            if(data==='done')
+              { 
+              	alert("login success");
+              }
+          });
+        });
+      });
+    </script>
+
+    <script type="text/javascript">
+
+    	function simpleHttpRequest(url, success, failure) {
+		  var request = makeHttpObject();
+		  request.open("GET", url, true);
+		  request.send(null);
+		  request.onreadystatechange = function() {
+		    if (request.readyState == 4) {
+		      if (request.status == 200)
+		        success(request.responseText);
+		      else if (failure)
+		        failure(request.status, request.statusText);
+		    }
+		  };
+		}
+
+// simpleHttpRequest("files/fruit.txt", print);
+// ¶
+
+    </script>
+
+</head>
+<body>
+<div class="form-group">
+    <br><br><br>
+Light Alarm:
+<input type="datetime-local" name="alarm1time" id= "alarm1Time"> <br><br><br>
 Repeat On:
-<input type="checkbox" name="Repeat On" value="Monday">Monday
-<input type="checkbox" name="Repeat On" value="Tuesday">Tuesday
-<input type="checkbox" name="Repeat On" value="Wednesday">Wednesday
-<input type="checkbox" name="Repeat On" value="Thursday">Thursday
-<input type="checkbox" name="Repeat On" value="Friday">Friday
-<input type="checkbox" name="Repeat On" value="Saturday">Saturday
-<input type="checkbox" name="Repeat On" value="Sunday">Sunday
+<input type="checkbox" id = "monday1" name="Repeat On" value="Monday">Monday
+<input type="checkbox" id = "tuesday1" name="Repeat On" value="Tuesday">Tuesday
+<input type="checkbox" id = "wednesday1" name="Repeat On" value="Wednesday">Wednesday
+<input type="checkbox" id = "thursday1" name="Repeat On" value="Thursday">Thursday
+<input type="checkbox" id = "friday1" name="Repeat On" value="Friday">Friday
+<input type="checkbox" id = "saturday1" name="Repeat On" value="Saturday">Saturday
+<input type="checkbox" id = "sunday1" name="Repeat On" value="Sunday">Sunday
 
 <br><br><br><br><br><br>
-Alarm 2:
-<input type="datetime-local" name="bdaytime"><br><br><br>
+Sound Alarm:
+<input type="datetime-local" name="alarm2time"><br><br><br>
 
-<input type="checkbox" name="Repeat On" value="Monday">Monday
-<input type="checkbox" name="Repeat On" value="Tuesday">Tuesday
-<input type="checkbox" name="Repeat On" value="Wednesday">Wednesday
-<input type="checkbox" name="Repeat On" value="Thursday">Thursday
-<input type="checkbox" name="Repeat On" value="Friday">Friday
-<input type="checkbox" name="Repeat On" value="Saturday">Saturday
-<input type="checkbox" name="Repeat On" value="Sunday">Sunday
+<input type="checkbox" id = "monday2" name="Repeat On" value="Monday">Monday
+<input type="checkbox" id = "tuesday2" name="Repeat On" value="Tuesday">Tuesday
+<input type="checkbox" id = "wednesday2" name="Repeat On" value="Wednesday">Wednesday
+<input type="checkbox" id = "thursday2" name="Repeat On" value="Thursday">Thursday
+<input type="checkbox" id = "friday2" name="Repeat On" value="Friday">Friday
+<input type="checkbox" id = "saturday2" name="Repeat On" value="Saturday">Saturday
+<input type="checkbox" id = "sunday2" name="Repeat On" value="Sunday">Sunday
 
 <br><br><br><br><br><br>
-<input type="submit" value="Alarm Me">
+<input type="button" value="Alarm Me" onclick= "setAlarm()">
+<script>
+
+var setAlarm = function(){
+//    var alarm = {
+// 	hours:,
+// 	min:
+// }
+	console.log($("#alarm1Time").val());
+	var alarm = $("#alarm1Time").val();
+    var testAlarm = new Date(alarm);
+	var test = {
+		date:testAlarm
+	}
+	console.log(testAlarm);
+
+	$.ajax({
+	type: "POST",
+	url: '/setAlarm',
+	data:test
+	});
+	}
+</script>
+
+
+<div class="col-md-9">
+       </div>
+    </div>
+   
 </form>
+
+</body>
+<script type="text/javascript">
+
+
+</script>
