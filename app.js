@@ -16,16 +16,15 @@ function AddZero(num) {
 
 function tick () {
 var now = new Date();
-//console.log(now);
-//console.log(now.getHours());
+console.log(now);
 
  if (alarm.hour ==  now.getHours() &&
  	//alarm.day ==  now.getDay() &&
  	alarm.year ==  now.getFullYear() &&
  	alarm.minutes == now.getMinutes()){
-    res.send('yes');
+    (console.log('yes'));
 		} else {
-	res.send('nope')
+	console.log('nope');
 	}
 }
 
@@ -39,40 +38,30 @@ var alarm = {
 	minutes: 0,	
 }
 
-
-
-
-
 // app.set('views', path.join(__dirname, 'views'));
 // app.set('view engine', 'jade');
-
-
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded());
 app.use(bodyParser.json());
-
-
 // app.get("alarm/", function(req, res){
-// 	res.render('index', {title : "alarmclocks"});
+// res.render('index', {title : "alarmclocks"});
 
 
 // });
-
-
 app.get('/', function(req, res){
 	res.sendfile('form.html');
 });
 
 app.get('/alarm', function (req, res) {
-	console.log('help!')
-	res.send(alarm.hour + alarm.minute);
+	// console.log('help!')
+	res.send(alarm.hour + alarm.minutes);
 	//console.log(alarm.hour);
 	//res.send(alarm_type)
 
 	//time, output, state, active,repeat
 });
-app.post("/setAlarm", function(req, res){
+app.get("/setAlarm", function(req, res){
 	console.log(req.body)
 	alarm = req.body;
 	// console.log(alarm.date);
@@ -84,10 +73,10 @@ app.post("/setAlarm", function(req, res){
 	alarm.hour = newDate.getHours();
 	alarm.minutes  = newDate.getMinutes();
 	console.log(alarm)
-	console.log(now.getHours());
-	console.log(now.getMonth());
+	// console.log(now.getHours());
+	// console.log(now.getMonth());
 	// alarm.alarmType = req.params.alarm_type;
-	// res.send(req.params.alarm_type)
+	res.send(req.params.alarm)
 });
 
 // app.get("/alarm/", function(req, res){

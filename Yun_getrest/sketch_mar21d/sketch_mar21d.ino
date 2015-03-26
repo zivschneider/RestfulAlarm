@@ -27,7 +27,63 @@ String dataString;       // a string for the buffer-to-int conversion
 
 void setup() {
   // initiate Bridge connection to linux processor:
+  Bridge.begin();#include <Bridge.h>
+
+char dataBuffer[4];
+
+const int powerPin1 = A0;
+const int powerPin2 = A1;
+int one, two;
+boolean powerOn1 = false;
+boolean powerOn2 = false;
+unsigned long previousMillis = 0;        // will store last time LED was updated
+
+// constants won't change :
+const long interval = 4000;           // interval at which to blink (milliseconds)
+
+void setup() {
+  
   Bridge.begin();
+  Serial.begin(9600);
+  Serial.println(F("starting up"));
+  pinMode(powerPin1, OUTPUT);
+  pinMode(powerPin2, OUTPUT);
+  
+}
+
+void loop()
+{
+  
+  Bridge.get("light", dataBuffer, 3);
+    Serial.println(dataBuffer);
+    if (dataBuffer = "on") {
+    powerOn1 = true;
+    } else {
+      powerOn1 = false;
+    };
+    
+  Bridge.get("sound", dataBuffer, 3);
+    Serial.println(dataBuffer);
+    if (dataBuffer = "on") {
+    powerOn2 = true;
+    } else {
+      powerOn2 = false;
+    }
+    if (powerOn1) {
+      digitalWrite(powerPin1, LOW);
+      Serial.println(F("1 ON")); } 
+      else {
+      digitalWrite(powerPin1, HIGH);
+      Serial.println(F("1 OFF"));
+    }    
+    if (powerOn2) {
+      digitalWrite(powerPin2, LOW);
+      Serial.println(F("2 ON")); } 
+      else {
+      digitalWrite(powerPin2, HIGH);
+      Serial.println(F("2 OFF"));
+    }
+} 
   Serial.begin(9600);
   // use pin 8 as a cathode ground pin:
   pinMode(8, OUTPUT);
